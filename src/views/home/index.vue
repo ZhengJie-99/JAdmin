@@ -13,7 +13,7 @@ const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
             </template>
             <n-skeleton v-if="loading" text :repeat="6" />
             <template v-else>
-                {{ formatted }}1
+                {{ formatted }}
             </template>
         </n-card>
     </div>
