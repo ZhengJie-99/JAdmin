@@ -1,6 +1,10 @@
 import router from '/@/router';
+type stateModel = {
+    name: string;
+    title: string;
+};
 export const useTagState = createGlobalState(() => {
-    const state = ref([{
+    const state = ref<stateModel[]>([{
         name: "Home",
         title: "首页"
     }])
@@ -13,7 +17,7 @@ export const useTagState = createGlobalState(() => {
     }
 
     // 移除Tag
-    function removeTagView(currentTag, type: number = 2) {
+    function removeTagView(currentTag: stateModel, type: number = 2) {
         switch (type) {
             case 2:
                 // 关闭当前
@@ -30,7 +34,7 @@ export const useTagState = createGlobalState(() => {
             // 关闭其他
             case 3:
                 if (currentTag.name == "Home") {
-                    state.value = currentTag
+                    state.value = [currentTag]
                 } else {
                     state.value = [{
                         name: "Home",
