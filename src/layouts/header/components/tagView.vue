@@ -1,34 +1,32 @@
 <script lang='ts' setup>
 import { useAppStore } from '/@/store/app'
 import { renderIcon } from '/@/utils/index'
+import { useTagState } from '/@/globalState/tagState'
 
-// store 主题
+// store 
 const store = useAppStore()
 
+// globalState
+const { state, addTagView, removeTagView } = useTagState()
 
-// 切换路由
+// 路由
 const router = useRouter()
 const currentRoute = useRoute();
+
+// 监听路由变化
 const currentPath = ref()
 const currentTitle = ref()
-
-// 初始化tagView
-store.initTagViewList()
 watch(
     () => currentRoute.fullPath,
     () => {
         currentPath.value = currentRoute.name
         currentTitle.value = currentRoute.meta.title
-        store.addTagView(currentPath.value, currentTitle.value)
+        addTagView(currentPath.value, currentTitle.value)
     }
 );
 
-// 跳转
-function clickMenuItem(key: string) {
-    router.push({ name: key });
-}
 
-// 弹框
+// 右键弹框
 const tagConfig = ref([
     {
         label: '刷新页面',
@@ -57,17 +55,17 @@ const yRef = ref(0)
 const showDropdownRef = ref(false)
 const currentTagView = ref({})
 
-// 切换
+// select
 function handleSelect(key: number) {
     showDropdownRef.value = false
     if (key == 1) {
         store.reload()
     } else {
-        store.removeTagView(currentTagView.value, key)
+        removeTagView(currentTagView.value, key)
     }
 }
 
-// 点击空白处
+// 弹框点击空白处
 function onClickoutside() {
     showDropdownRef.value = false
 }
@@ -87,15 +85,13 @@ function handleContextMenu(e: MouseEvent, key: any) {
         yRef.value = e.clientY
     })
 }
-
 </script>
 
 <template>
     <n-space warp class="px-16px pt-8px">
-        <n-tag v-for="(item, index) in store.tagViewList" :key="index" size="large"
-            :closable="item.name != 'Home' ? true : false"
+        <n-tag v-for="(item, index) in state" :key="index" size="large" :closable="item.name != 'Home' ? true : false"
             :color="{ color: store.theme === 'dark' ? '#18181c' : 'null' }" :bordered="false"
-            @close.stop="store.removeTagView(item)" @click="clickMenuItem(item.name)"
+            @close.stop="removeTagView(item)" @click="router.push({ 'name': item.name })"
             @contextmenu="handleContextMenu($event, item)">
             <n-el :class="{ tag_el: true, 'text-blue-500/80': item.name == currentPath ? true : false }" tag="span">
                 {{ item.title }}
