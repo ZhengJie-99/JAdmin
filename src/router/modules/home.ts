@@ -3,9 +3,9 @@ export default {
     path: '/',
     name: 'Root',
     redirect: '/home',
+    icon: renderIcon('ant-design:dashboard-outlined'),
     meta: {
         title: '监控台',
-        icon: renderIcon('ant-design:dashboard-outlined')
     },
     children: [{
         path: '/home',

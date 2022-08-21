@@ -1,9 +1,6 @@
 <script lang='ts' setup>
-import { useAppStore } from '/@/store/app'
 import { MenuInst } from 'naive-ui'
 
-// store
-const store = useAppStore()
 
 // 路由数据
 const currentRoute = useRoute();
@@ -17,7 +14,7 @@ const generator: any = (routerMap) => {
             ...item,
             label: item.meta.title,
             key: item.name,
-            ...item.meta
+            show: item.meta.show
         };
         if (item.children && item.children.length > 0) {
             currentMenu.children = generator(item.children);
@@ -26,8 +23,19 @@ const generator: any = (routerMap) => {
     });
 };
 const breadcrumbList = computed(() => {
-    return generator(router.options.routes);
+    let list = generator(router.options.routes)
+    // 移除设置为false的选项
+    // 原因：当前框架设置show为false 出现BUG
+    // 待官方解决此问题删除即可
+    // 只验证第一层级
+    list.forEach((item, index) => {
+        if (item.show === false) {
+            delete list[index]
+        }
+    });
+    return list
 });
+
 
 // 跟随页面路由变化，切换菜单选中状态
 const currentPath = ref()

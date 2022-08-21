@@ -9,7 +9,6 @@ Object.keys(modules).forEach((key) => {
     routes.push(...modList);
 });
 
-
 const router = createRouter({
     history: createWebHashHistory(),
     routes,

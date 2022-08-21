@@ -11,7 +11,7 @@ const { state, addTagView, removeTagView } = useTagState()
 
 // 路由
 const router = useRouter()
-const currentRoute = useRoute();
+const currentRoute = useRoute()
 
 // 监听路由变化
 const currentPath = ref()
@@ -21,7 +21,10 @@ watch(
     () => {
         currentPath.value = currentRoute.name
         currentTitle.value = currentRoute.meta.title
-        addTagView(currentPath.value, currentTitle.value)
+        // 排除隐藏路由
+        if (currentRoute.meta.show !== false) {
+            addTagView(currentPath.value, currentTitle.value)
+        }
     }
 );
 
@@ -53,7 +56,7 @@ const tagConfig = ref([
 const xRef = ref(0)
 const yRef = ref(0)
 const showDropdownRef = ref(false)
-const currentTagView = ref({})
+const currentTagView = ref()
 
 // select
 function handleSelect(key: number) {

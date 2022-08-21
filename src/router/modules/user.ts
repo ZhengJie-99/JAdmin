@@ -3,9 +3,9 @@ export default {
     path: '/user',
     name: 'User',
     redirect: '/userinfo',
+    icon: renderIcon('ph:user-circle'),
     meta: {
         title: '用户中心',
-        icon: renderIcon('ph:user-circle')
     },
     children: [{
         path: '/userinfo',
@@ -16,7 +16,7 @@ export default {
         }
     }, {
         path: '/naive-ui',
-        name: 'https://www.naiveui.com/zh-CN/dark/docs/installation',
+        name: 'https://www.naiveui.com/zh-CN/dark',
         meta: {
             title: "Naive UI"
         }
