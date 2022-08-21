@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import { useAppStore } from '/@/store/app'
 import { renderIcon } from '/@/utils/index'
-import { useTagState } from '/@/globalState/tagState'
+import { useTagState } from '/@/storage/tagState'
 
 // store 
 const store = useAppStore()

@@ -2,6 +2,8 @@
 const loading = ref<boolean>(false)
 const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
 
+let title = import.meta.env.VITE_INDEX_TITLE
+
 </script>
 
 <template>
@@ -15,6 +17,7 @@ const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
             <n-skeleton v-if="loading" text :repeat="6" />
             <template v-else>
                 {{ formatted }}
+                {{ title }}
             </template>
         </n-card>
     </div>

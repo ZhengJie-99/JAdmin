@@ -46,6 +46,8 @@ const avatarOptions = [
     },
 ];
 
+// 全屏
+const { toggle } = useFullscreen()
 
 </script>
 
@@ -71,13 +73,19 @@ const avatarOptions = [
 
             <!-- 个人中心 -->
             <div class="flex items-center">
-                <n-dropdown trigger="click" :options="avatarOptions" :show-arrow="true">
-                    <div class="avatar flex items-center cursor-pointer">
-                        <n-avatar round size="small">
-                            {{ username }}
-                        </n-avatar>
+                <n-space>
+                    <div class="cursor-pointer h-7 leading-7 flex items-center text-16px" @click="toggle">
+                        <span @click="toggle()" class="iconify" data-icon="radix-icons:enter-full-screen"
+                            data-inline="false"></span>
                     </div>
-                </n-dropdown>
+                    <n-dropdown trigger="click" :options="avatarOptions" :show-arrow="true">
+                        <div class="avatar flex items-center cursor-pointer">
+                            <n-avatar round size="small">
+                                {{ username }}
+                            </n-avatar>
+                        </div>
+                    </n-dropdown>
+                </n-space>
             </div>
         </n-space>
     </n-layout-header>
