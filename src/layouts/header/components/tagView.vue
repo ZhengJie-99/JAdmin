@@ -2,6 +2,7 @@
 import { useAppStore } from '/@/store/app'
 import { renderIcon } from '/@/utils/index'
 import { useTagState } from '/@/storage/tagState'
+import { useLoadingBar } from 'naive-ui'
 
 // store 
 const store = useAppStore()
@@ -88,6 +89,11 @@ function handleContextMenu(e: MouseEvent, key: any) {
         yRef.value = e.clientY
     })
 }
+
+onMounted(() => {
+    // 挂载loading
+    window['$loading'] = useLoadingBar();
+})
 </script>
 
 <template>

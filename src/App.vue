@@ -16,28 +16,31 @@ const theme = computed(() => {
     store.theme = osThemeRef.value
     return osThemeRef.value === 'dark' ? darkTheme : null
 })
+
 </script>
 
 <template>
     <n-config-provider :theme="theme" :locale="zhCN" :date-locale="dateZhCN">
         <n-global-style />
-        <n-layout has-sider embedded position="absolute">
-            <Siders />
-            <n-layout>
-                <Header />
-                <n-layout-content content-style="padding: 8px 16px;" class="flex-1">
-                    <RouterView v-slot="{ Component, route }" :key="store.currentRouterViewKey">
-                        <Transition mode="out-in" appear>
-                            <KeepAlive v-if="!route.meta.closekeepAlive">
-                                <component :is="Component"></component>
-                            </KeepAlive>
-                            <component v-else :is="Component"></component>
-                        </Transition>
-                    </RouterView>
-                </n-layout-content>
-                <Footer />
+        <n-loading-bar-provider>
+            <n-layout has-sider embedded position="absolute">
+                <Siders />
+                <n-layout>
+                    <Header />
+                    <n-layout-content content-style="padding: 8px 16px;" class="flex-1">
+                        <RouterView v-slot="{ Component, route }" :key="store.currentRouterViewKey">
+                            <Transition mode="out-in" appear>
+                                <KeepAlive v-if="!route.meta.closekeepAlive">
+                                    <component :is="Component"></component>
+                                </KeepAlive>
+                                <component v-else :is="Component"></component>
+                            </Transition>
+                        </RouterView>
+                    </n-layout-content>
+                    <Footer />
+                </n-layout>
             </n-layout>
-        </n-layout>
+        </n-loading-bar-provider>
     </n-config-provider>
 </template>
 

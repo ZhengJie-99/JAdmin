@@ -15,9 +15,12 @@ const router = createRouter({
     strict: true,
     scrollBehavior: () => ({ left: 0, top: 0 }),
 })
-
 router.beforeEach((to, from, next) => {
+    window['$loading'].start();
     next()
+})
+router.afterEach(() => {
+    window['$loading'].finish();
 })
 
 export default router
