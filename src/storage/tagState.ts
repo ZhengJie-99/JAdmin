@@ -8,6 +8,7 @@ export const useTagState = createGlobalState(() => {
         name: "Home",
         title: "首页"
     }])
+    
     // 添加Tag
     function addTagView(name: string, title: string) {
         let isExist = state.value.some((v) => v.name == name)

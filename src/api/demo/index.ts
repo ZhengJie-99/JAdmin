@@ -16,6 +16,3 @@ export function apiFoxApi(data: ApiFoxParams) {
         data
     })
 }
-
-
-
