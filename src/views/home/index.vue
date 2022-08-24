@@ -1,6 +1,17 @@
 <script lang='ts' setup>
+import { serve } from '/@/utils/http'
 const loading = ref<boolean>(false)
 const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
+
+serve.request({
+    url: '/test',
+    method: 'get',
+    params: {
+        id: 13
+    }
+}).then((res)=> {
+    console.log(res);
+})
 
 </script>
 
