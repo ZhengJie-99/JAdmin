@@ -1,19 +1,16 @@
 <script lang='ts' setup>
-import { serve } from '/@/utils/http'
+import { apiFoxApi } from '/@/api/demo'
 const loading = ref<boolean>(false)
 const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
 
 
 async function test() {
     try {
-        const data = await serve.request({
-            url: '/testpost',
-            method: 'post'
-        })
+        const data = await apiFoxApi({ id: 123 })
         console.log(data);
     } catch (error) {
     } finally {
-        console.log('finally');
+        // console.log('finally');
     }
 }
 test()
