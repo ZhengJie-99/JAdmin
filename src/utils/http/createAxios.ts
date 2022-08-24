@@ -40,24 +40,27 @@ export class JAxios {
                 })
                 .catch((error) => {
                     if (error.response) {
-                        this.checkStatus(`错误代码: ${error.response.status}, 请联系系统管理员`)
+                        this.checkStatus(error.response.status, `错误代码: ${error.response.status}, 请联系系统管理员`)
                     } else if (error.request) {
-                        this.checkStatus(`请求超时, 请联系系统管理员`)
+                        this.checkStatus(error.response.status, `请求超时, 请联系系统管理员`)
                     } else {
-                        this.checkStatus(`Error: ${error.message}`)
-                        console.log('Error', error.message);
+                        this.checkStatus(error.response.status, `Error: ${error.message}`)
                     }
                     reject(error);
                 });
         });
     }
 
-    private checkStatus(msg: string) {
-        window['$notification'].error({
-            content: '错误提示',
-            meta: msg,
-            duration: 2500,
-            keepAliveOnHover: true
-        });
+    private checkStatus(status: number, msg: string) {
+        if (status !== 200) {
+            window['$notification'].error({
+                content: '错误提示',
+                meta: msg,
+                duration: 2500,
+                keepAliveOnHover: true
+            });
+        } else {
+            // 业务逻辑处理
+        }
     }
 }
