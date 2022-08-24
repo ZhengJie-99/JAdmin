@@ -3,16 +3,20 @@ import { serve } from '/@/utils/http'
 const loading = ref<boolean>(false)
 const formatted = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss')
 
-serve.request({
-    url: '/test',
-    method: 'get',
-    params: {
-        id: 13
-    }
-}).then((res)=> {
-    console.log(res);
-})
 
+async function test() {
+    try {
+        const data = await serve.request({
+            url: '/testpost',
+            method: 'post'
+        })
+        console.log(data);
+    } catch (error) {
+    } finally {
+        console.log('finally');
+    }
+}
+test()
 </script>
 
 <template>

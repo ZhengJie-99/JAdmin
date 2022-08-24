@@ -1,6 +1,6 @@
 <script lang='ts' setup>
+import { useLoadingBar, useNotification } from 'naive-ui'
 import tagView from './components/tagView.vue'
-
 
 // 路由数据
 const router = useRouter();
@@ -49,6 +49,13 @@ const avatarOptions = [
 // 全屏
 const { toggle } = useFullscreen()
 
+
+onMounted(() => {
+    // 挂载loading
+    window['$loading'] = useLoadingBar();
+    // 挂载消息提示
+    window['$notification'] = useNotification();
+})
 </script>
 
 <template>

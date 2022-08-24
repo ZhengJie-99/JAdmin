@@ -38,9 +38,26 @@ export class JAxios {
                 .then((res) => {
                     resolve(res);
                 })
-                .catch((e) => {
-                    reject(e);
+                .catch((error) => {
+                    if (error.response) {
+                        this.checkStatus(`错误代码: ${error.response.status}, 请联系系统管理员`)
+                    } else if (error.request) {
+                        this.checkStatus(`请求超时, 请联系系统管理员`)
+                    } else {
+                        this.checkStatus(`Error: ${error.message}`)
+                        console.log('Error', error.message);
+                    }
+                    reject(error);
                 });
+        });
+    }
+
+    private checkStatus(msg: string) {
+        window['$notification'].error({
+            content: '错误提示',
+            meta: msg,
+            duration: 2500,
+            keepAliveOnHover: true
         });
     }
 }
